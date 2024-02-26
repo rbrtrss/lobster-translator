@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lobster-translator"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["rbrtrss <roberto.rousse@gmail.com>"]
 readme = "README.md"
