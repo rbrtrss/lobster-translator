@@ -8,6 +8,9 @@ packages = [{include = "lobster_translator"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+pandas = "^2.2.1"
+numpy = "^1.26.4"
+matplotlib = "^3.8.3"
 
 
 [build-system]
