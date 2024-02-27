@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lobster-translator"
-version = "0.1.1"
+version = "0.2.0"
 description = ""
 authors = ["rbrtrss <roberto.rousse@gmail.com>"]
 readme = "README.md"
@@ -12,6 +12,9 @@ pandas = "^2.2.1"
 numpy = "^1.26.4"
 matplotlib = "^3.8.3"
 
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.0.2"
 
 [build-system]
 requires = ["poetry-core"]
