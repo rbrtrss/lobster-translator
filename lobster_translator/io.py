@@ -4,7 +4,7 @@ from lobster_translator.helpers import get_interaction_from_line
 from lobster_translator.helpers import get_indicator_from_path
 from lobster_translator.helpers import multiply_by_minus_one
 
-def carfile_to_df(input_path: str, corresponding_structure: str) -> pd.DataFrame:
+def carfile_to_df(input_path: str) -> pd.DataFrame:
     """
     To read COHPCAR.lobster, COBICAR.lobster or COOPCAR.lobster and collect in pd.Dataframe
     """
@@ -13,6 +13,7 @@ def carfile_to_df(input_path: str, corresponding_structure: str) -> pd.DataFrame
         lines = file.readlines()
 
     filename = input_path.split('/')[-1]
+    structure = input_path.split('/')[-2]
 
     interactions = [get_interaction_from_line(line) for line in lines if line.startswith("No.")]
     integrated_interactions = ['i' + interaction for interaction in interactions]
@@ -30,19 +31,20 @@ def carfile_to_df(input_path: str, corresponding_structure: str) -> pd.DataFrame
     if filename == 'COHPCAR.lobster':
         df = multiply_by_minus_one(df)
 
-    df['structure'] = corresponding_structure
+    df['structure'] = structure
 
     return df
 
-def listfile_to_df(input_path: str, corresponding_structure: str) -> pd.DataFrame:
+def listfile_to_df(input_path: str) -> pd.DataFrame:
     """
     To read ICOBILIST.lobster, ICOHPLIST.lobster or ICOOPLIST.lobster and collect in pd.DataFrame
     """
+    structure = input_path.split('/')[-2]
     df = pd.read_csv(input_path, sep=r'\s+', engine='python', skiprows=1, header=None)
     indicator = get_indicator_from_path(input_path)
-    df['structure'] = corresponding_structure
+    df['structure'] = structure
     df['interaction'] = df[1] + df[2]
     df[indicator] = df[7]
     df['distance'] = df[3]
-    return df[['structure','interaction','icobi', 'distance']]
+    return df[['structure','interaction',indicator, 'distance']]
 
